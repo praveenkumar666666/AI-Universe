@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upgrade Plan</title>
+</head>
+<body>
+
+<h2>Upgrade to Premium</h2>
+
+<button id="pay-btn">Pay ₹499</button>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+var options = {
+    "key": "{{ key }}",
+    "amount": "{{ order.amount }}",
+    "currency": "INR",
+    "name": "AI Universe",
+    "order_id": "{{ order.id }}",
+    "handler": function (response){
+
+        fetch("/payment-success", {
+            method: "POST"
+        })
+        .then(res => res.text())
+        .then(data => {
+            alert(data);
+            window.location.href = "/new-chat";
+        });
+
+    }
+};
+
+document.getElementById("pay-btn").onclick = function(e){
+    var rzp = new Razorpay(options);
+    rzp.open();
+}
+</script>
+
+</body>
+</html>

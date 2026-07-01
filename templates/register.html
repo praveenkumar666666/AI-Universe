@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register | AI Universe
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-box">
+
+        <h1>📝 Register</h1>
+
+        <p>Create your AI Universe account</p>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                required>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required>
+
+            <button type="submit">
+                Register
+            </button>
+
+        </form>
+
+        <div class="auth-link">
+
+            Already have an account?
+
+            <a href="{{ url_for('auth.login') }}">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
