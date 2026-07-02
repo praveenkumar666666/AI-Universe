@@ -2,8 +2,9 @@ Flask
 Flask-Login 
 Flask-SQLAlchemy 
 Flask-SocketIO
- python-dotenv 
- ollama 
- razorpay
-  python-dateutil
-   eventlet
+python-dotenv 
+ollama 
+razorpay
+python-dateutil
+eventlet
+gunicorn
