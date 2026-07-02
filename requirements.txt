@@ -1,5 +1,6 @@
 Flask 
 Flask-Login 
+Flask-Bcrypt
 Flask-SQLAlchemy 
 Flask-SocketIO
 python-dotenv 
