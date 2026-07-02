@@ -1,10 +1,11 @@
-Flask 
-Flask-Login 
+Flask
 Flask-Bcrypt
-Flask-SQLAlchemy 
+Flask-Login
+Flask-Migrate
+Flask-SQLAlchemy
 Flask-SocketIO
-python-dotenv 
-ollama 
+python-dotenv
+ollama
 razorpay
 python-dateutil
 eventlet
