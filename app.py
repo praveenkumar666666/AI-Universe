@@ -9,54 +9,44 @@ from extensions import (
     migrate
 )
 
-from routes.chat import chat, register_socket_events
-from routes.auth import auth
 from routes.home import home
+from routes.auth import auth
+from routes.chat import chat, register_socket_events
 
-# =========================
-# APP INIT
-# =========================
-app = Flask(__name__)
-app.config.from_object(Config)
+socketio = SocketIO(cors_allowed_origins="*")
 
-# =========================
-# EXTENSIONS INIT
-# =========================
-db.init_app(app)
-bcrypt.init_app(app)
-login_manager.init_app(app)
-migrate.init_app(app, db)
 
-# =========================
-# SOCKET.IO INIT
-# =========================
-socketio = SocketIO(
-    app,
-    cors_allowed_origins="*",
-    async_mode="eventlet"
-)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-# =========================
-# REGISTER SOCKET EVENTS
-# =========================
-register_socket_events(socketio)
+    # Initialize extensions
+    db.init_app(app)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    migrate.init_app(app, db)
 
-# =========================
-# REGISTER BLUEPRINTS
-# =========================
-app.register_blueprint(home)
-app.register_blueprint(auth)
-app.register_blueprint(chat)
+    # Initialize SocketIO
+    socketio.init_app(app, async_mode="eventlet")
 
-# =========================
-# CREATE DATABASE TABLES
-# =========================
-with app.app_context():
-    db.create_all()
+    # Register socket events
+    register_socket_events(socketio)
 
-# =========================
-# MAIN
-# =========================
+    # Register blueprints
+    app.register_blueprint(home)
+    app.register_blueprint(auth)
+    app.register_blueprint(chat)
+
+    # Create database
+    with app.app_context():
+        db.create_all()
+
+    return app
+
+
+app = create_app()
+
+
 if __name__ == "__main__":
     socketio.run(
         app,
